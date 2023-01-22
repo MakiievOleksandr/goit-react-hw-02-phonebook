@@ -1,20 +1,24 @@
+import PropTypes from 'prop-types';
 import { nanoid } from 'nanoid';
 
-function ContactList({ onDeleteContact, items }) {
-  // console.log(onVisibleContacts);
-  console.log(items);
+import css from '../ContactList/contactList.module.css';
+
+function ContactList({ onDeleteContact, onVisibleContacts }) {
   return (
-    <ul>
-      {items.map(contact => {
-        console.log('MAP');
+    <ul className={css.list}>
+      {onVisibleContacts.map(contact => {
         return (
-          <li key={nanoid()}>
-            <p>
+          <li key={nanoid()} className={css.listItem}>
+            <p className={css.text}>
               {contact.name}
               {': '}
               {contact.number}
             </p>
-            <button type="button" onClick={() => onDeleteContact(contact.id)}>
+            <button
+              type="button"
+              onClick={() => onDeleteContact(contact.id)}
+              className={css.btn}
+            >
               Delete
             </button>
           </li>
@@ -25,3 +29,14 @@ function ContactList({ onDeleteContact, items }) {
 }
 
 export default ContactList;
+
+ContactList.propTypes = {
+  onDeleteContact: PropTypes.func.isRequired,
+  onVisibleContacts: PropTypes.arrayOf(
+    PropTypes.shape({
+      name: PropTypes.string.isRequired,
+      number: PropTypes.string.isRequired,
+      id: PropTypes.string.isRequired,
+    })
+  ),
+};
