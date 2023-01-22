@@ -63,10 +63,11 @@ class ContactForm extends Component {
             className={css.input}
           />
         </label>
-
-        <button type="submit" className={css.btn}>
-          Add contact
-        </button>
+        {name && (
+          <button type="submit" className={css.btn}>
+            Add contact
+          </button>
+        )}
       </form>
     );
   }

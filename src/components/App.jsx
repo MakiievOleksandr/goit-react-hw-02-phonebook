@@ -40,7 +40,7 @@ class App extends Component {
   };
 
   render() {
-    const { filter } = this.state;
+    const { filter, contacts } = this.state;
     const visibleContacts = this.getVisibleContacts();
 
     return (
@@ -48,13 +48,15 @@ class App extends Component {
         <Section title="Phonebook">
           <ContactForm onAddContact={this.addContact} />
         </Section>
-        <Section title="Contacts">
-          <Filter filter={filter} onChangeFilter={this.changeFilter} />
-          <ContactList
-            onVisibleContacts={visibleContacts}
-            onDeleteContact={this.deleteContact}
-          />
-        </Section>
+        {contacts.length > 0 && (
+          <Section title="Contacts">
+            <Filter filter={filter} onChangeFilter={this.changeFilter} />
+            <ContactList
+              onVisibleContacts={visibleContacts}
+              onDeleteContact={this.deleteContact}
+            />
+          </Section>
+        )}
       </>
     );
   }
